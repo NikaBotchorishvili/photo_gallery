@@ -5,7 +5,7 @@ import { UseFormRegisterReturn } from "react-hook-form";
 type Props = {
 	register: UseFormRegisterReturn;
 	onSubmit: () => void;
-	error: string;
+	error: string | undefined;
 };
 
 const SearchForm: React.FC<Props> = ({ register, onSubmit, error }) => {
