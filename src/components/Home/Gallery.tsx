@@ -24,15 +24,15 @@ const Gallery = () => {
 				searchTerm: SearchTerm as string,
 		  });
 	let content;
-		
+
 	if (isLoading) {
 		content = <p>Skeleton loader</p>;
 	} else if (isSuccess) {
-		if(SearchTerm === ""){
+		if (SearchTerm === "") {
 			content = (images as Image[]).map((image, idx) => {
 				return <Item key={idx} image={image} />;
 			});
-		}else{
+		} else {
 			content = (images as SearchResult).results.map((image, idx) => {
 				return <Item key={idx} image={image} />;
 			});

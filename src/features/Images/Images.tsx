@@ -1,7 +1,5 @@
 import { apiSlice } from "../../app/api/apiSlice";
 
-
-
 export const imagesSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
 		getImages: builder.query<Image[], { page: number }>({
