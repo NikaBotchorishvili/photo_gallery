@@ -16,3 +16,9 @@ type Image = {
 	};
 	user: { username: string };
 };
+
+type SearchResult = {
+	total: number;
+	total_pages: number;
+	results: Image[];
+};

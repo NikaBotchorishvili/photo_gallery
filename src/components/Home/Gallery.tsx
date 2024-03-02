@@ -1,21 +1,42 @@
 import { useState, useEffect } from "react";
-import { useGetImagesQuery } from "../../features/Images/Images";
+import {
+	useGetImagesQuery,
+	useSearchImagesQuery,
+} from "../../features/Images/Images";
 import Item from "./Item";
+import { useAppSelector } from "../../app/hooks";
+import { SelectCurrentSearchTerm } from "../../app/api/searchSlice";
 
 const Gallery = () => {
 	const [page, setPage] = useState<number>(1);
-	const { data, isLoading, isError, isSuccess, isFetching } =
-		useGetImagesQuery(page);
-	const images = data ?? [];
+	const SearchTerm = useAppSelector(SelectCurrentSearchTerm);
 
+	const {
+		data: images,
+		isLoading,
+		isSuccess,
+		isError,
+		isFetching,
+	} = SearchTerm === ""
+		? useGetImagesQuery({ page: page })
+		: useSearchImagesQuery({
+				page: page,
+				searchTerm: SearchTerm as string,
+		  });
 	let content;
-
+		
 	if (isLoading) {
 		content = <p>Skeleton loader</p>;
 	} else if (isSuccess) {
-		content = data.map((image) => {
-			return <Item key={image.id} image={image} />;
-		});
+		if(SearchTerm === ""){
+			content = (images as Image[]).map((image, idx) => {
+				return <Item key={idx} image={image} />;
+			});
+		}else{
+			content = (images as SearchResult).results.map((image, idx) => {
+				return <Item key={idx} image={image} />;
+			});
+		}
 	}
 
 	useEffect(() => {
@@ -35,11 +56,11 @@ const Gallery = () => {
 		};
 	}, [page, isFetching]);
 	return (
-		<section>
+		<article>
 			<ul className="flex justify-center flex-wrap w-[90dvw] mx-auto gap-8">
 				{content}
 			</ul>
-		</section>
+		</article>
 	);
 };
 

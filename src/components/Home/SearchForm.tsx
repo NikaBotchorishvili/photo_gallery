@@ -15,7 +15,6 @@ const SearchForm: React.FC<Props> = ({ register, onSubmit, error }) => {
 				<input
 					type="search"
 					{...register}
-					name="name"
 					placeholder="Enter an image name "
 					className="focus:outline-none"
 				/>
