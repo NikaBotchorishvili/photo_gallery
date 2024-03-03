@@ -34,7 +34,7 @@ const Gallery: React.FC<Props> = ({ SearchTerm }) => {
 
 	let content;
 
-	if (isLoading || isFetching) {
+	if (isLoading) {
 		content = new Array(10)
 			.fill(0)
 			.map((_, idx) => <ItemSkeleton key={idx} />);
@@ -95,6 +95,10 @@ const Gallery: React.FC<Props> = ({ SearchTerm }) => {
 			<article>
 				<ul className="flex  justify-center flex-wrap w-[90dvw] mx-auto gap-8">
 					{content}
+					{isFetching &&
+						new Array(10)
+							.fill(0)
+							.map((_, idx) => <ItemSkeleton key={idx} />)}
 				</ul>
 			</article>
 		</>

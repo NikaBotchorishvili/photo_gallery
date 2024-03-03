@@ -14,6 +14,7 @@ const Home: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const SearchTerm = useAppSelector(SelectCurrentSearchTerm) as string;
 	const onSubmit = handleSubmit((data) => {
+		
 		dispatch(newSearchTerm(data.search));
 	});
 	return (

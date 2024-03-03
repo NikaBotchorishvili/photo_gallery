@@ -14,9 +14,11 @@ const searchSlice = createSlice({
 	name: "Search",
 	initialState,
 	reducers: {
-		newSearchTerm: (state, { payload }) => {
+		newSearchTerm: (state, { payload }: {payload: string}) => {
+			if(payload !== "" && payload.trim() !== ""){
+				state.searchTerms.push(payload);
+			}
             state.searchTerm = payload
-			state.searchTerms.push(payload);
 		},
 		setSearchTerm: (state, { payload }) => {
 			state.searchTerm = payload;
