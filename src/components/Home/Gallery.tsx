@@ -4,6 +4,7 @@ import {
 	useSearchImagesQuery,
 } from "../../features/Images/Images";
 import Item from "./Item";
+import Popup from "./Popup";
 
 type Props = {
 	SearchTerm: string;
@@ -11,6 +12,13 @@ type Props = {
 
 const Gallery: React.FC<Props> = ({ SearchTerm }) => {
 	const [page, setPage] = useState<number>(1);
+	const [selectedImage, setSelectedItem] = useState<Image | null>(null);
+	const handlePopupOpen = (image: Image) => {
+		setSelectedItem(image);
+	};
+	const handlePopupClose = () => {
+		setSelectedItem(null);
+	};
 	const {
 		data: images,
 		isLoading,
@@ -31,11 +39,23 @@ const Gallery: React.FC<Props> = ({ SearchTerm }) => {
 	} else if (isSuccess) {
 		if (SearchTerm === "") {
 			content = (images as Image[]).map((image, idx) => {
-				return <Item key={idx} image={image} />;
+				return (
+					<Item
+						handlePopupOpen={handlePopupOpen}
+						key={idx}
+						image={image}
+					/>
+				);
 			});
 		} else {
 			content = (images as SearchResult).results.map((image, idx) => {
-				return <Item key={idx} image={image} />;
+				return (
+					<Item
+						handlePopupOpen={handlePopupOpen}
+						key={idx}
+						image={image}
+					/>
+				);
 			});
 		}
 	}
@@ -51,17 +71,26 @@ const Gallery: React.FC<Props> = ({ SearchTerm }) => {
 		};
 
 		document.addEventListener("scroll", onScroll);
-
+		if (selectedImage) {
+			document.body.classList.add("overflow-hidden");
+		} else {
+			document.body.classList.remove("overflow-hidden");
+		}
 		return () => {
 			document.removeEventListener("scroll", onScroll);
+			document.body.classList.remove("overflow-hidden");
 		};
-	}, [page, isFetching, SearchTerm]);
+	}, [page, isFetching, SearchTerm, selectedImage]);
+
 	return (
-		<article>
-			<ul className="flex justify-center flex-wrap w-[90dvw] mx-auto gap-8">
-				{content}
-			</ul>
-		</article>
+		<>
+			{selectedImage !== null && <Popup handlePopupClose={handlePopupClose} image={selectedImage} />}
+			<article>
+				<ul className="flex  justify-center flex-wrap w-[90dvw] mx-auto gap-8">
+					{content}
+				</ul>
+			</article>
+		</>
 	);
 };
 

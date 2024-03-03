@@ -40,6 +40,15 @@ export const imagesSlice = apiSlice.injectEndpoints({
 				return currentArg?.page !== previousArg?.page;
 			},
 		}),
+		getImageStatistics: builder.query<any, { imageId: number }>({
+			query: ({ imageId }) => ({
+				url: `/photos/${imageId}/statistics`,
+				method: "GET",
+			}),
+			serializeQueryArgs: ({ endpointName, queryArgs }) => {
+				return `${endpointName} ${queryArgs.imageId}`;
+			},
+		}),
 	}),
 });
-export const { useGetImagesQuery, useSearchImagesQuery } = imagesSlice;
+export const { useGetImagesQuery, useSearchImagesQuery, useGetImageStatisticsQuery } = imagesSlice;

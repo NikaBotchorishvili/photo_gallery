@@ -3,7 +3,7 @@ import Gallery from "../../components/Home/Gallery";
 import { useForm } from "react-hook-form";
 import SearchForm from "../../components/Home/SearchForm";
 import { newSearchTerm } from "../../app/api/searchSlice";
-import { useAppDispatch,useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { SelectCurrentSearchTerm } from "../../app/api/searchSlice";
 type FormData = {
 	search: string;
@@ -14,7 +14,6 @@ const Home: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const SearchTerm = useAppSelector(SelectCurrentSearchTerm) as string;
 	const onSubmit = handleSubmit((data) => {
-
 		dispatch(newSearchTerm(data.search));
 	});
 	return (

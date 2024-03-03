@@ -15,6 +15,7 @@ type Image = {
 		small: string;
 	};
 	user: { username: string };
+	statistics: { views: { total: number } };
 };
 
 type SearchResult = {
