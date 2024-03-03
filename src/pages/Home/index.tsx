@@ -1,4 +1,4 @@
-import Gallery from "../../components/Home/Gallery";
+import Gallery from "../../components/common/Gallery";
 
 import { useForm } from "react-hook-form";
 import SearchForm from "../../components/Home/SearchForm";
@@ -14,7 +14,6 @@ const Home: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const SearchTerm = useAppSelector(SelectCurrentSearchTerm) as string;
 	const onSubmit = handleSubmit((data) => {
-		
 		dispatch(newSearchTerm(data.search));
 	});
 	return (

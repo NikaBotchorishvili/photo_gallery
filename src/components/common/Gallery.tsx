@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
 	useGetImagesQuery,
 	useSearchImagesQuery,
 } from "../../features/Images/Images";
+
 import Item from "./Item/Item";
 import ItemSkeleton from "./Item/ItemSkeleton";
+import useInfiniteScroll from "../../libs/InfiniteScroll";
 import Popup from "./Popup";
 
 type Props = {
@@ -12,7 +14,7 @@ type Props = {
 };
 
 const Gallery: React.FC<Props> = ({ SearchTerm }) => {
-	const [page, setPage] = useState<number>(1);
+	const [page, setPage] = useState<number>(0);
 	const [selectedImage, setSelectedItem] = useState<Image | null>(null);
 	const handlePopupOpen = (image: Image) => {
 		setSelectedItem(image);
@@ -20,18 +22,27 @@ const Gallery: React.FC<Props> = ({ SearchTerm }) => {
 	const handlePopupClose = () => {
 		setSelectedItem(null);
 	};
+
 	const {
 		data: images,
 		isLoading,
 		isSuccess,
 		isFetching,
+		isError,
+		error,
 	} = SearchTerm === ""
 		? useGetImagesQuery({ page: page })
 		: useSearchImagesQuery({
 				page: page,
 				searchTerm: SearchTerm as string,
 		  });
-
+	useInfiniteScroll({
+		SearchTerm: SearchTerm,
+		isFetching: isFetching,
+		selectedImage: selectedImage,
+		page: page,
+		setPage,
+	});
 	let content;
 
 	if (isLoading) {
@@ -60,29 +71,9 @@ const Gallery: React.FC<Props> = ({ SearchTerm }) => {
 				);
 			});
 		}
+	} else if (isError) {
+		content = <h3 className="text-2xl text-red-700">Unexpected Error occurred!</h3>;
 	}
-
-	useEffect(() => {
-		const onScroll = () => {
-			const scrolledToBottom =
-				window.innerHeight + window.scrollY >=
-				document.body.offsetHeight;
-			if (scrolledToBottom && !isFetching) {
-				setPage(page + 1);
-			}
-		};
-
-		document.addEventListener("scroll", onScroll);
-		if (selectedImage) {
-			document.body.classList.add("overflow-hidden");
-		} else {
-			document.body.classList.remove("overflow-hidden");
-		}
-		return () => {
-			document.removeEventListener("scroll", onScroll);
-			document.body.classList.remove("overflow-hidden");
-		};
-	}, [page, isFetching, SearchTerm, selectedImage]);
 
 	return (
 		<>
