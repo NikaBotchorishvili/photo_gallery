@@ -1,4 +1,3 @@
-import produce from "immer";
 import { apiSlice } from "../../app/api/apiSlice";
 export const imagesSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
@@ -40,7 +39,7 @@ export const imagesSlice = apiSlice.injectEndpoints({
 				return currentArg?.page !== previousArg?.page;
 			},
 		}),
-		getImageStatistics: builder.query<any, { imageId: number }>({
+		getImageStatistics: builder.query<ImageStatistics, { imageId: string }>({
 			query: ({ imageId }) => ({
 				url: `/photos/${imageId}/statistics`,
 				method: "GET",

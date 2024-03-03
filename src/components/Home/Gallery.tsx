@@ -84,7 +84,12 @@ const Gallery: React.FC<Props> = ({ SearchTerm }) => {
 
 	return (
 		<>
-			{selectedImage !== null && <Popup handlePopupClose={handlePopupClose} image={selectedImage} />}
+			{selectedImage !== null && (
+				<Popup
+					handlePopupClose={handlePopupClose}
+					image={selectedImage}
+				/>
+			)}
 			<article>
 				<ul className="flex  justify-center flex-wrap w-[90dvw] mx-auto gap-8">
 					{content}
