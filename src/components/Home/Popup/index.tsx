@@ -8,10 +8,9 @@ import PopupError from "./components/PopupError";
 import PopupSkeleton from "./components/PopupSkeleton";
 
 const Popup: React.FC<Props> = ({ image, handlePopupClose }) => {
-	const { data, isLoading, isError, isSuccess } =
-		useGetImageStatisticsQuery({
-			imageId: image.id,
-		});
+	const { data, isLoading, isError, isSuccess } = useGetImageStatisticsQuery({
+		imageId: image.id,
+	});
 
 	let content;
 	if (isLoading) {
@@ -29,11 +28,7 @@ const Popup: React.FC<Props> = ({ image, handlePopupClose }) => {
 			/>
 		);
 	} else if (isError) {
-		content = (
-			<PopupError
-				handlePopupClose={handlePopupClose}
-			/>
-		);
+		content = <PopupError handlePopupClose={handlePopupClose} />;
 	}
 	return (
 		<>

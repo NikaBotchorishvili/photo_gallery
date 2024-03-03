@@ -3,7 +3,8 @@ import {
 	useGetImagesQuery,
 	useSearchImagesQuery,
 } from "../../features/Images/Images";
-import Item from "./Item";
+import Item from "./Item/Item";
+import ItemSkeleton from "./Item/ItemSkeleton";
 import Popup from "./Popup";
 
 type Props = {
@@ -33,8 +34,10 @@ const Gallery: React.FC<Props> = ({ SearchTerm }) => {
 
 	let content;
 
-	if (isLoading) {
-		content = <p>Skeleton loader</p>;
+	if (isLoading || isFetching) {
+		content = new Array(10)
+			.fill(0)
+			.map((_, idx) => <ItemSkeleton key={idx} />);
 	} else if (isSuccess) {
 		if (SearchTerm === "") {
 			content = (images as Image[]).map((image, idx) => {
