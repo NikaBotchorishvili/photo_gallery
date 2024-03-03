@@ -23,7 +23,6 @@ const Gallery: React.FC<Props> = ({ SearchTerm }) => {
 		data: images,
 		isLoading,
 		isSuccess,
-		isError,
 		isFetching,
 	} = SearchTerm === ""
 		? useGetImagesQuery({ page: page })

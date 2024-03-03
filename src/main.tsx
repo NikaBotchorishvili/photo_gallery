@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import Loader from "./components/common/Loader";
 
 const Home = lazy(() => import("./pages/Home"));
 const History = lazy(() => import("./pages/History"));
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
 			{
 				path: "/",
 				element: (
-					<Suspense fallback={<h2>Loading</h2>}>
+					<Suspense fallback={<Loader />}>
 						<Home />
 					</Suspense>
 				),
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
 			{
 				path: "/history",
 				element: (
-					<Suspense fallback={<h2>Loading</h2>}>
+					<Suspense fallback={<Loader />}>
 						<History />
 					</Suspense>
 				),

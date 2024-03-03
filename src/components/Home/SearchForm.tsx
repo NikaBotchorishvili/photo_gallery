@@ -15,7 +15,7 @@ const SearchForm: React.FC<Props> = ({ register, onSubmit, error }) => {
 				<input
 					type="search"
 					{...register}
-					placeholder="Enter an image name "
+					placeholder="Search"
 					className="focus:outline-none"
 				/>
 				<button className="bg-main border border-main text-white py-2 px-3 rounded-l-xl h-full">
