@@ -13,7 +13,7 @@ const Header: React.FC = () => {
 						</Link>
 					</li>
 					<li>
-						<Link className="text-xl" to={"/"}>
+						<Link className="text-xl" to={"/history"}>
 							History
 						</Link>
 					</li>

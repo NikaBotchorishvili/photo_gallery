@@ -18,13 +18,15 @@ const searchSlice = createSlice({
             state.searchTerm = payload
 			state.searchTerms.push(payload);
 		},
-
+		setSearchTerm: (state, { payload }) => {
+			state.searchTerm = payload;
+		}
 	},
 });
 
 
-export const { newSearchTerm } = searchSlice.actions;
+export const { newSearchTerm, setSearchTerm } = searchSlice.actions;
 
-export const SelectSearchTerms = (state: RootState) => state.search.searchTerms.values;
+export const SelectSearchTerms = (state: RootState) => state.search.searchTerms;
 export const SelectCurrentSearchTerm = (state: RootState): string => state.search.searchTerm;
 export default searchSlice.reducer;

@@ -3,17 +3,18 @@ import Gallery from "../../components/Home/Gallery";
 import { useForm } from "react-hook-form";
 import SearchForm from "../../components/Home/SearchForm";
 import { newSearchTerm } from "../../app/api/searchSlice";
-import { useAppDispatch } from "../../app/hooks";
-
+import { useAppDispatch,useAppSelector } from "../../app/hooks";
+import { SelectCurrentSearchTerm } from "../../app/api/searchSlice";
 type FormData = {
 	search: string;
 };
 
 const Home: React.FC = () => {
-	const { register, handleSubmit, formState } =
-		useForm<FormData>();
+	const { register, handleSubmit, formState } = useForm<FormData>();
 	const dispatch = useAppDispatch();
+	const SearchTerm = useAppSelector(SelectCurrentSearchTerm) as string;
 	const onSubmit = handleSubmit((data) => {
+
 		dispatch(newSearchTerm(data.search));
 	});
 	return (
@@ -23,20 +24,14 @@ const Home: React.FC = () => {
 			<section className="flex flex-col gap-y-10">
 				<SearchForm
 					onSubmit={onSubmit}
-					register={register("search", {
-						required: {
-							value: true,
-							message: "Required Field"
-						}
-					})}
+					register={register("search", {})}
 					error={formState.errors.search?.message}
 				/>
 
-				<Gallery />
+				<Gallery SearchTerm={SearchTerm} />
 			</section>
 		</main>
 	);
 };
 
 export default Home;
-

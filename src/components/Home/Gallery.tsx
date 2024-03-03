@@ -4,13 +4,13 @@ import {
 	useSearchImagesQuery,
 } from "../../features/Images/Images";
 import Item from "./Item";
-import { useAppSelector } from "../../app/hooks";
-import { SelectCurrentSearchTerm } from "../../app/api/searchSlice";
 
-const Gallery = () => {
+type Props = {
+	SearchTerm: string;
+};
+
+const Gallery: React.FC<Props> = ({ SearchTerm }) => {
 	const [page, setPage] = useState<number>(1);
-	const SearchTerm = useAppSelector(SelectCurrentSearchTerm);
-
 	const {
 		data: images,
 		isLoading,
@@ -23,6 +23,7 @@ const Gallery = () => {
 				page: page,
 				searchTerm: SearchTerm as string,
 		  });
+
 	let content;
 
 	if (isLoading) {
@@ -54,7 +55,7 @@ const Gallery = () => {
 		return () => {
 			document.removeEventListener("scroll", onScroll);
 		};
-	}, [page, isFetching]);
+	}, [page, isFetching, SearchTerm]);
 	return (
 		<article>
 			<ul className="flex justify-center flex-wrap w-[90dvw] mx-auto gap-8">

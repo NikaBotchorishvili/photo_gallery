@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 
 const Home = lazy(() => import("./pages/Home"));
+const History = lazy(() => import("./pages/History"));
 
 const router = createBrowserRouter([
 	{
@@ -14,7 +15,19 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: "/",
-				element: <Home />,
+				element: (
+					<Suspense fallback={<h2>Loading</h2>}>
+						<Home />
+					</Suspense>
+				),
+			},
+			{
+				path: "/history",
+				element: (
+					<Suspense fallback={<h2>Loading</h2>}>
+						<History />
+					</Suspense>
+				),
 			},
 		],
 	},
