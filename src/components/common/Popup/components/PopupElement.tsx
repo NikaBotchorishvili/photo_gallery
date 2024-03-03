@@ -34,7 +34,7 @@ const PopupElement: React.FC<Props> = ({
 					style={{ background: smallImageURL }}
 				>
 					<img
-						className=" w-full h-full rounded-md aspect-video object-cover object-center"
+						className=" w-full h-full rounded-md aspect-video object-contain object-center"
 						src={fullImageURL}
 						alt={imageAltDescription}
 						loading="lazy"

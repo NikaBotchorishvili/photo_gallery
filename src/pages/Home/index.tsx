@@ -18,7 +18,7 @@ const Home: React.FC = () => {
 	});
 	return (
 		<main>
-			<h1 className="text-4xl text-center my-6">Gallery</h1>
+			<h1 className="text-4xl text-center mb-5">Gallery</h1>
 
 			<section className="flex flex-col gap-y-10">
 				<SearchForm

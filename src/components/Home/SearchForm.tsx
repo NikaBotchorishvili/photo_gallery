@@ -11,7 +11,7 @@ type Props = {
 const SearchForm: React.FC<Props> = ({ register, onSubmit, error }) => {
 	return (
 		<form className="flex flex-col text-center gap-y-1" onSubmit={onSubmit}>
-			<div className="flex flex-row-reverse items-center justify-center  gap-x-4 w-[200px] mx-auto px-5 h-[50px]  rounded-xl border-2">
+			<div className="flex flex-row-reverse items-center justify-center  gap-x-4 w-[200px] mx-auto px-5 h-[50px]  rounded-xl border">
 				<input
 					type="search"
 					{...register}

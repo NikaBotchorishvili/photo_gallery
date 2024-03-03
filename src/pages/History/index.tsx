@@ -1,4 +1,6 @@
-import { setSearchTerm } from "../../app/api/searchSlice";
+import {
+	setSearchTerm,
+} from "../../app/api/searchSlice";
 import { useAppDispatch } from "../../app/hooks";
 import HistoryList from "../../components/History/HistoryList";
 import { useState } from "react";
@@ -17,7 +19,10 @@ const History = () => {
 		<section className="flex flex-col items-center gap-y-5">
 			<h1 className="text-4xl">Recently Searched</h1>
 			<HistoryList SearchTermOnClickHandler={SearchTermOnClickHandler} />
-			{term !== "" && <Gallery SearchTerm={term} />}
+			{term !== ""  && (
+
+			<Gallery SearchTerm={term} />
+			)}
 		</section>
 	);
 };
